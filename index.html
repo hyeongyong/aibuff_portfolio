@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>박형용 · Frontend Developer — AI.BUFF 프로젝트</title>
+<meta name="description" content="박형용 풀스택 개발자 포트폴리오 — AI.BUFF(AI 학생부·진로·진학 플랫폼) 풀스택 개발 기여 정리" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  :root{
+    --bg:#0b0f19; --bg2:#0e1320; --surface:#141a2b; --surface2:#171e31;
+    --border:rgba(255,255,255,.08); --border2:rgba(255,255,255,.14);
+    --text:#e7e9f0; --muted:#99a2b5; --faint:#6b7488;
+    --cyan:#6ee7ff; --indigo:#8b95ff; --teal:#5eead4; --pink:#f0abfc;
+    --grad:linear-gradient(135deg,#6ee7ff 0%,#8b95ff 55%,#f0abfc 100%);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+  /* ambient glow */
+  .glow{position:fixed;border-radius:50%;filter:blur(90px);opacity:.22;z-index:-1;pointer-events:none}
+  .glow.a{width:520px;height:520px;background:#3b82f6;top:-160px;left:-120px}
+  .glow.b{width:460px;height:460px;background:#a855f7;top:30%;right:-160px;opacity:.16}
+  .glow.c{width:420px;height:420px;background:#06b6d4;bottom:-160px;left:30%;opacity:.13}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
+    background:rgba(11,15,25,.72);border-bottom:1px solid var(--border)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-weight:800;letter-spacing:.3px;font-size:18px}
+  .brand .dot{color:var(--cyan)}
+  .nav-links{display:flex;gap:28px;font-size:14px;color:var(--muted)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--text)}
+  @media(max-width:720px){.nav-links{display:none}}
+
+  /* hero */
+  header.hero{padding:96px 0 72px;position:relative}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--cyan);
+    border:1px solid var(--border2);border-radius:999px;padding:6px 14px;margin-bottom:26px;
+    background:rgba(110,231,255,.06)}
+  .eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(94,234,212,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(94,234,212,.5)}70%{box-shadow:0 0 0 10px rgba(94,234,212,0)}100%{box-shadow:0 0 0 0 rgba(94,234,212,0)}}
+  h1.name{font-size:clamp(40px,7vw,76px);font-weight:800;line-height:1.05;letter-spacing:-1px}
+  .role{font-size:clamp(18px,3vw,26px);font-weight:600;color:var(--muted);margin-top:14px}
+  .role b{color:var(--text);font-weight:700}
+  .lede{max-width:640px;color:var(--muted);font-size:17px;margin-top:24px}
+  .hero-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+  .hero-badges span{font-size:13px;color:var(--text);background:var(--surface);
+    border:1px solid var(--border);border-radius:8px;padding:7px 12px}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:54px}
+  .stat{background:linear-gradient(180deg,var(--surface),var(--bg2));border:1px solid var(--border);
+    border-radius:16px;padding:22px 20px}
+  .stat .num{font-size:30px;font-weight:800}
+  .stat .lab{font-size:13px;color:var(--muted);margin-top:4px}
+  @media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  /* sections */
+  section{padding:64px 0;position:relative}
+  .sec-head{margin-bottom:38px}
+  .sec-kicker{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan)}
+  .sec-title{font-size:clamp(26px,4vw,38px);font-weight:800;margin-top:10px;letter-spacing:-.5px}
+  .sec-sub{color:var(--muted);margin-top:10px;max-width:680px}
+
+  /* project overview */
+  .overview{background:linear-gradient(180deg,var(--surface),var(--bg2));border:1px solid var(--border);
+    border-radius:20px;padding:34px}
+  .overview p{color:var(--muted);font-size:16px}
+  .ov-meta{display:flex;flex-wrap:wrap;gap:24px;margin-top:24px;padding-top:24px;border-top:1px solid var(--border)}
+  .ov-meta div .k{font-size:12px;color:var(--faint);text-transform:uppercase;letter-spacing:1px}
+  .ov-meta div .v{font-size:15px;font-weight:600;margin-top:3px}
+
+  /* contribution cards */
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media(max-width:760px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px;
+    position:relative;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s}
+  .card:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 18px 40px -20px rgba(0,0,0,.7)}
+  .card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--grad);opacity:.0;transition:opacity .25s}
+  .card:hover::before{opacity:1}
+  .card .ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:22px;background:rgba(139,149,255,.12);border:1px solid var(--border);margin-bottom:16px}
+  .card h3{font-size:19px;font-weight:700}
+  .card .ctag{font-size:12px;color:var(--cyan);font-weight:600;margin-top:2px;margin-bottom:10px;display:block}
+  .card p{font-size:14.5px;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .chips b{font-weight:500;font-size:12px;color:var(--text);background:var(--surface2);
+    border:1px solid var(--border);border-radius:6px;padding:4px 9px}
+
+  /* tech stack */
+  .tech-group{margin-bottom:22px}
+  .tech-group .tg-lab{font-size:13px;color:var(--faint);font-weight:700;letter-spacing:1px;margin-bottom:12px;text-transform:uppercase}
+  .tech{display:flex;flex-wrap:wrap;gap:10px}
+  .tech span{font-size:14px;color:var(--text);background:var(--surface);border:1px solid var(--border);
+    border-radius:10px;padding:9px 14px;transition:border-color .2s,transform .2s}
+  .tech span:hover{border-color:var(--cyan);transform:translateY(-2px)}
+
+  /* timeline */
+  .tl{position:relative;padding-left:28px}
+  .tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--border2)}
+  .tl-item{position:relative;padding:0 0 30px 8px}
+  .tl-item::before{content:"";position:absolute;left:-28px;top:4px;width:14px;height:14px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 12px rgba(110,231,255,.5)}
+  .tl-item .when{font-size:13px;color:var(--cyan);font-weight:700}
+  .tl-item .what{font-size:16px;font-weight:600;margin-top:3px}
+  .tl-item .desc{font-size:14px;color:var(--muted);margin-top:4px}
+
+  /* gallery */
+  .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  @media(max-width:760px){.shots{grid-template-columns:1fr}}
+  .shot{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+    transition:transform .25s,border-color .25s,box-shadow .25s}
+  .shot:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 18px 40px -20px rgba(0,0,0,.7)}
+  .shot .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:var(--surface2);border-bottom:1px solid var(--border)}
+  .shot .bar i{width:10px;height:10px;border-radius:50%;background:#39405a}
+  .shot .bar i:nth-child(1){background:#ff5f57}.shot .bar i:nth-child(2){background:#febc2e}.shot .bar i:nth-child(3){background:#28c840}
+  .shot .bar span{margin-left:8px;font-size:12px;color:var(--faint)}
+  .shot-body{position:relative;aspect-ratio:16/10;background:var(--bg2)}
+  .shot-img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;cursor:zoom-in}
+  .shot.noimg .shot-img{display:none}
+  .shot-ph{display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+    background:repeating-linear-gradient(45deg,var(--bg2),var(--bg2) 12px,#10182a 12px,#10182a 24px);text-align:center;padding:16px}
+  .shot.noimg .shot-ph{display:flex}
+  .shot-ph .ph-ic{font-size:30px;opacity:.7}
+  .shot-ph b{font-size:14px;color:var(--text)}
+  .shot-ph em{font-size:12px;color:var(--faint);font-style:normal;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 8px}
+  .shot figcaption{padding:14px 16px;font-size:14px;color:var(--muted);border-top:1px solid var(--border)}
+  .shots-hint{margin-top:24px;font-size:13.5px;color:var(--muted)}
+  .shots-hint code{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:2px 7px;font-size:12.5px;color:var(--cyan)}
+
+  /* lightbox */
+  .lb{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;
+    background:rgba(5,8,15,.86);backdrop-filter:blur(6px);padding:32px;cursor:zoom-out}
+  .lb.open{display:flex}
+  .lb img{max-width:100%;max-height:100%;border-radius:12px;border:1px solid var(--border2);box-shadow:0 30px 80px -30px #000}
+  .lb-close{position:absolute;top:20px;right:26px;font-size:32px;color:#fff;opacity:.85;cursor:pointer;line-height:1}
+
+  /* footer */
+  footer{border-top:1px solid var(--border);padding:46px 0;margin-top:40px}
+  .foot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .foot .fname{font-weight:800;font-size:18px}
+  .foot .fnote{font-size:13px;color:var(--faint)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.show{opacity:1;transform:none}
+</style>
+</head>
+<body>
+  <div class="glow a"></div><div class="glow b"></div><div class="glow c"></div>
+
+  <nav>
+    <div class="wrap nav-in">
+      <div class="brand">박형용<span class="dot">.</span><span style="color:var(--muted);font-weight:600;font-size:14px"> / frontend</span></div>
+      <div class="nav-links">
+        <a href="#project">프로젝트</a>
+        <a href="#work">기여</a>
+        <a href="#gallery">화면</a>
+        <a href="#stack">기술스택</a>
+        <a href="#timeline">타임라인</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow"><span class="pulse"></span> AI.BUFF · fullStack Development</div>
+      <h1 class="name">박형용</h1>
+      <div class="role"><b>개발자</b> — AI 학생부·진로·진학 플랫폼 <span class="grad-text">AI.BUFF</span></div>
+      <p class="lede">
+        AI 기반 학생부·진로 플랫폼 <b>AI.BUFF</b>를 약 20개월간 담당했습니다.
+        메인 서비스 퍼블리싱부터 인증·외부 서비스(서울런·톡톡스쿨) SSO 연동, 학생부 평가 리포트,
+        B2B 이용권 관리·권한 제어까지 사용자·관리자 양쪽 화면을 폭넓게 개발했습니다.
+      </p>
+      <div class="hero-badges">
+        <span>Next.js 15</span><span>React 19</span><span>TypeScript</span>
+        <span>Tailwind CSS 4</span><span>SSR / App Router</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat reveal"><div class="num grad-text">175+</div><div class="lab">개인 커밋</div></div>
+        <div class="stat reveal"><div class="num grad-text">~20<span style="font-size:18px">개월</span></div><div class="lab">2024.10 – 2026.06</div></div>
+        <div class="stat reveal"><div class="num grad-text">6+</div><div class="lab">핵심 기능 영역</div></div>
+        <div class="stat reveal"><div class="num grad-text">B2C·B2B</div><div class="lab">사용자·관리자 화면</div></div>
+      </div>
+    </div>
+  </header>
+
+  <section id="project">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">The Project</div>
+        <h2 class="sec-title">AI.BUFF — AI 학생부·진로·진학 플랫폼</h2>
+        <p class="sec-sub">학생의 생활기록부를 AI로 평가·분석하고 진로·진학을 설계하는 교육 SaaS. 학생·학부모·교사·기관(학원/본사)을 아우르는 다중 역할 서비스입니다.</p>
+      </div>
+      <div class="overview reveal">
+        <p>
+          AI.BUFF는 <b style="color:var(--text)">AI 학생부 평가, 진로·학습검사, 합격 예측, 탐구주제·탐구보고서, 모의면접</b> 등
+          입시·진로 전반을 다루는 플랫폼입니다. 서울특별시 교육 플랫폼 <b style="color:var(--text)">서울런(Seoul Learn)</b>과
+          연계해 단일 인증으로 서비스를 이용하도록 연동했고, 학원·교육청 등 <b style="color:var(--text)">B2B 기관 운영</b>을 위한
+          이용권(구독)·권한 관리 체계도 함께 구축했습니다. 저는 이 서비스의 <b style="color:var(--text)">프론트,백앤드 개발</b>을 담당했습니다.
+        </p>
+        <div class="ov-meta">
+          <div><div class="k">Role</div><div class="v">개발 (담당)</div></div>
+          <div><div class="k">Period</div><div class="v">2024.10 – 2026.06</div></div>
+          <div><div class="k">Domain</div><div class="v">교육 / 입시 SaaS</div></div>
+          <div><div class="k">Users</div><div class="v">학생 · 학부모 · 교사 · 기관</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">What I Built</div>
+        <h2 class="sec-title">핵심 기여 영역</h2>
+        <p class="sec-sub">커밋 이력 기준, 제가 직접 개발·유지보수한 주요 기능 영역입니다.</p>
+      </div>
+      <div class="cards">
+
+        <div class="card reveal">
+          <div class="ic">🧩</div>
+          <h3>메인 서비스 UI · 반응형 퍼블리싱</h3>
+          <span class="ctag">Publishing · Responsive · Component</span>
+          <p>메인 랜딩과 핵심 화면을 퍼블리싱하고 모바일 반응형을 구현했습니다. 서비스 전역에서 재사용하는 공통 알림(모달) 컴포넌트를 설계해 일관된 UX를 제공했습니다.</p>
+          <div class="chips"><b>메인 랜딩</b><b>모바일 반응형</b><b>공통 알림 모달</b><b>Swiper 슬라이더</b></div>
+        </div>
+
+        <div class="card reveal">
+          <div class="ic">🔐</div>
+          <h3>인증 · 세션 관리</h3>
+          <span class="ctag">Auth · Cookie Session</span>
+          <p>이메일 → 아이디 로그인 체계 전환, 쿠키 기반 세션(유효시간 제어), 로그인 상태별 강제 리다이렉트를 구현했습니다. 로그인 처리 속도 개선 작업도 진행했습니다.</p>
+          <div class="chips"><b>아이디 로그인 전환</b><b>쿠키 세션</b><b>로그인 속도 개선</b><b>접근 가드</b></div>
+        </div>
+
+        <div class="card reveal">
+          <div class="ic">🔗</div>
+          <h3>외부 서비스 SSO 연동</h3>
+          <span class="ctag">Seoul Learn · TalkTalk School</span>
+          <p>서울런 ↔ AI.BUFF 계정 연계 자동 로그인, 개인정보 동의·수정 플로우, 비로그인 안내 팝업을 개발했습니다. 톡톡스쿨 SSO 이동 및 검사·로드맵 화면 자동 연결도 구현했습니다.</p>
+          <div class="chips"><b>서울런 SSO</b><b>개인정보 동의 플로우</b><b>톡톡스쿨 연동</b><b>자동 로그인</b></div>
+        </div>
+
+        <div class="card reveal">
+          <div class="ic">📊</div>
+          <h3>AI 학생부 평가 리포트</h3>
+          <span class="ctag">Evaluation · Report · PDF</span>
+          <p>학생부 평가 진행 프로세스 UI, 상세 리포트 화면, 입력 유효성 검증을 개발했습니다. 차트 시각화와 리포트의 PDF/이미지 출력 기능을 적용했습니다.</p>
+          <div class="chips"><b>평가 프로세스 UI</b><b>상세 리포트</b><b>차트 시각화</b><b>PDF 출력</b></div>
+        </div>
+
+        <div class="card reveal">
+          <div class="ic">🎯</div>
+          <h3>진로 · 탐구 콘텐츠</h3>
+          <span class="ctag">Topics · Report · Interview</span>
+          <p>탐구주제 추천·탐구보고서 작성, 모의면접 화면, 진로·학습검사 및 로드맵 연동 화면을 개발했습니다. 가이드 모달·슬라이더 등 학습 보조 UX를 구성했습니다.</p>
+          <div class="chips"><b>탐구주제/보고서</b><b>모의면접</b><b>로드맵 연동</b><b>가이드 모달</b></div>
+        </div>
+
+        <div class="card reveal">
+          <div class="ic">🏷️</div>
+          <h3>B2B 이용권 · 권한 관리</h3>
+          <span class="ctag">Subscription · RBAC · Admin</span>
+          <p>학원·본사용 이용권(구독) 생성·신청현황·학생관리·견적서 화면과, 특정 학원에만 노출되는 이용권 로직을 개발했습니다. 역할(권한)별 메뉴 노출과 메뉴별 사용 횟수 제어 체계를 구축했습니다.</p>
+          <div class="chips"><b>이용권 생성/신청현황</b><b>견적서</b><b>권한별 메뉴</b><b>사용 횟수 제어</b></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">Screens</div>
+        <h2 class="sec-title">화면 미리보기</h2>
+        <p class="sec-sub">직접 개발한 주요 화면입니다. 이미지를 클릭하면 확대됩니다.</p>
+      </div>
+      <div class="shots">
+
+        <figure class="shot reveal">
+          <div class="bar"><i></i><i></i><i></i><span>ai.buff / main</span></div>
+          <div class="shot-body">
+            <img class="shot-img" src="images/01-main.png" alt="메인 랜딩" loading="lazy"
+                 onerror="this.closest('.shot').classList.add('noimg')" onclick="openShot(this)" />
+            <div class="shot-ph"><span class="ph-ic">🖼️</span><b>메인 랜딩 · 반응형</b><em>images/01-main.png</em></div>
+          </div>
+          <figcaption>메인 랜딩 · 반응형 퍼블리싱</figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <div class="bar"><i></i><i></i><i></i><span>ai.buff / login</span></div>
+          <div class="shot-body">
+            <img class="shot-img" src="images/02-login.png" alt="로그인 · 인증" loading="lazy"
+                 onerror="this.closest('.shot').classList.add('noimg')" onclick="openShot(this)" />
+            <div class="shot-ph"><span class="ph-ic">🖼️</span><b>로그인 · 인증</b><em>images/02-login.png</em></div>
+          </div>
+          <figcaption>로그인 · 인증 / SSO 연동</figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <div class="bar"><i></i><i></i><i></i><span>ai.buff / record-eval</span></div>
+          <div class="shot-body">
+            <img class="shot-img" src="images/03-record-eval.png" alt="AI 학생부 평가 리포트" loading="lazy"
+                 onerror="this.closest('.shot').classList.add('noimg')" onclick="openShot(this)" />
+            <div class="shot-ph"><span class="ph-ic">🖼️</span><b>AI 학생부 평가 리포트</b><em>images/03-record-eval.png</em></div>
+          </div>
+          <figcaption>AI 학생부 평가 리포트</figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <div class="bar"><i></i><i></i><i></i><span>ai.buff / research</span></div>
+          <div class="shot-body">
+            <img class="shot-img" src="images/04-research.png" alt="탐구주제 · 모의면접" loading="lazy"
+                 onerror="this.closest('.shot').classList.add('noimg')" onclick="openShot(this)" />
+            <div class="shot-ph"><span class="ph-ic">🖼️</span><b>탐구주제 · 모의면접</b><em>images/04-research.png</em></div>
+          </div>
+          <figcaption>탐구주제 · 탐구보고서 · 모의면접</figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <div class="bar"><i></i><i></i><i></i><span>admin / subscription</span></div>
+          <div class="shot-body">
+            <img class="shot-img" src="images/05-subscription.png" alt="이용권 관리" loading="lazy"
+                 onerror="this.closest('.shot').classList.add('noimg')" onclick="openShot(this)" />
+            <div class="shot-ph"><span class="ph-ic">🖼️</span><b>이용권(구독) 관리</b><em>images/05-subscription.png</em></div>
+          </div>
+          <figcaption>B2B 이용권(구독) 관리 · 견적서</figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <div class="bar"><i></i><i></i><i></i><span>admin / settings</span></div>
+          <div class="shot-body">
+            <img class="shot-img" src="images/06-admin.png" alt="권한 · 관리자 설정" loading="lazy"
+                 onerror="this.closest('.shot').classList.add('noimg')" onclick="openShot(this)" />
+            <div class="shot-ph"><span class="ph-ic">🖼️</span><b>권한 · 관리자 설정</b><em>images/06-admin.png</em></div>
+          </div>
+          <figcaption>권한별 메뉴 · 관리자 설정</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">Tech Stack</div>
+        <h2 class="sec-title">사용 기술</h2>
+        <p class="sec-sub">실제 프로젝트에서 사용한 프레임워크와 라이브러리입니다.</p>
+      </div>
+
+      <div class="tech-group reveal">
+        <div class="tg-lab">Core</div>
+        <div class="tech">
+          <span>Next.js</span><span>React 19</span><span>TypeScript</span><span>Tailwind CSS 4</span>
+          <span>Nest.js(backend)</span><span>mysql</span>
+        </div>
+      </div>
+  </section>
+
+  <section id="timeline">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">Timeline</div>
+        <h2 class="sec-title">작업 흐름</h2>
+        <p class="sec-sub">프로젝트 기여를 시기별로 정리했습니다.</p>
+      </div>
+      <div class="tl">
+        <div class="tl-item reveal">
+          <div class="when">2024.10 – 2025.01</div>
+          <div class="what">초기 화면 · 학생부 평가 기반</div>
+          <div class="desc">학생부 평가 목록·로그인 쿠키 처리 등 초기 화면과 인증 기반 작업.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="when">2025.10 – 2025.11</div>
+          <div class="what">메인 서비스 퍼블리싱 집중 (피크)</div>
+          <div class="desc">메인 페이지·모바일 반응형 퍼블리싱, 공통 알림 컴포넌트, 서울런 연동 및 개인정보 플로우를 집중 개발(월 70+ 커밋).</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="when">2025.12 – 2026.05</div>
+          <div class="what">SSO 자동 연동 · 평가 리포트 고도화</div>
+          <div class="desc">톡톡스쿨/서울런 검사·로드맵 자동 로그인 연동, 학생부 평가 리포트 수정·고도화, 기관별 권한·횟수 제어.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="when">2026.06</div>
+          <div class="what">B2B 이용권 관리 · 로그인 개선</div>
+          <div class="desc">본사·학원용 이용권 생성/신청현황/학생관리/견적서, 특정 학원 노출 로직, 로그인 속도 개선.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot">
+      <div>
+        <div class="fname">박형용 <span style="color:var(--muted);font-weight:600;font-size:14px">/ fullStack Developer</span></div>
+        <div class="fnote">AI.BUFF — AI 학생부·진로·진학 플랫폼 개발</div>
+      </div>
+      <div class="fnote">© <span id="year"></span> Hyungyong Park. Built with HTML · CSS.</div>
+    </div>
+  </footer>
+
+  <div class="lb" id="lb" onclick="closeShot()"><span class="lb-close">&times;</span><img id="lb-img" alt="확대 화면" /></div>
+
+<script>
+  // active nav on scroll
+  const sections=[...document.querySelectorAll('section[id]')];
+  const links=[...document.querySelectorAll('.nav-links a')];
+  const byId=id=>links.find(a=>a.getAttribute('href')==='#'+id);
+  const navObs=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=byId(e.target.id);if(a)a.classList.add('active');}});
+  },{rootMargin:'-45% 0px -50% 0px'});
+  sections.forEach(s=>navObs.observe(s));
+
+  // reveal on scroll
+  const revObs=new IntersectionObserver(es=>{
+    es.forEach((e,i)=>{if(e.isIntersecting){e.target.style.transitionDelay=(Math.min(i,4)*60)+'ms';e.target.classList.add('show');revObs.unobserve(e.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+  // lightbox (screen preview)
+  function openShot(img){const lb=document.getElementById('lb');document.getElementById('lb-img').src=img.src;lb.classList.add('open');document.body.style.overflow='hidden';}
+  function closeShot(){document.getElementById('lb').classList.remove('open');document.body.style.overflow='';}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeShot();});
+
+  document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
